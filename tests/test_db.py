@@ -94,3 +94,19 @@ def test_get_posts_excludes_ignored_by_default(tmp_path, monkeypatch):
     mark_ignored("p1")
     results = get_posts()
     assert {p.id for p in results} == {"p2"}
+
+
+from src.models import ScanRun
+from src.db import insert_scan_run, update_scan_run, get_latest_scan_run
+
+
+def test_scan_run_lifecycle(tmp_path, monkeypatch):
+    monkeypatch.setenv("APPDATA", str(tmp_path))
+    init_db()
+    run = ScanRun(started_at=datetime(2026, 5, 11, 14, 0), status="running")
+    run_id = insert_scan_run(run)
+    assert run_id > 0
+    update_scan_run(run_id, status="done", ended_at=datetime(2026, 5, 11, 14, 5), posts_found=47, posts_new=12)
+    latest = get_latest_scan_run()
+    assert latest.status == "done"
+    assert latest.posts_new == 12
