@@ -8,6 +8,7 @@ const elProgressLabel = document.getElementById("progress-label");
 const elScanStatus = document.getElementById("scan-status");
 const elFilters = document.getElementById("filters");
 const elLoginBtn = document.getElementById("btn-login");
+const elTierStats = document.getElementById("tier-stats");
 
 let pollTimer = null;
 
@@ -111,6 +112,22 @@ function renderCard(p) {
   return card;
 }
 
+async function refreshTierStats() {
+  if (!elTierStats) return;
+  try {
+    const r = await fetch("/api/debug/stats");
+    const s = await r.json();
+    const tc = s.tier_counts || {};
+    const order = ["S", "A", "B", "C", "D", "E", "over_budget", "skip"];
+    const emoji = { S: "⭐", A: "⭐", B: "👍", C: "🤷", D: "🟡", E: "🔴", over_budget: "💸", skip: "⏭" };
+    const parts = order.filter(t => tc[t]).map(t => `${emoji[t]}${t}:${tc[t]}`);
+    const other = Object.keys(tc).filter(k => !order.includes(k)).map(k => `${k}:${tc[k]}`);
+    elTierStats.textContent = "📊 " + [...parts, ...other].join(" · ");
+  } catch (e) {
+    elTierStats.textContent = "";
+  }
+}
+
 async function refreshPosts() {
   const tiers = [...document.querySelectorAll(".filter-tier:checked")].map(e => e.value);
   const includeIgnored = document.getElementById("filter-include-ignored").checked;
@@ -145,6 +162,7 @@ async function pollStatus() {
     elScanBtn.disabled = false;
     if (s.status === "done") {
       elScanStatus.textContent = `✅ Completato — ${s.posts_new} nuovi su ${s.posts_found}`;
+      await refreshTierStats();
       await refreshPosts();
       clearInterval(pollTimer);
       pollTimer = null;
@@ -171,4 +189,5 @@ elLoginBtn?.addEventListener("click", async () => {
 
 elFilters?.addEventListener("change", refreshPosts);
 
+refreshTierStats();
 refreshPosts();

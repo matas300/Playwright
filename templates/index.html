@@ -13,6 +13,7 @@
   <span id="session-status">
     {% if session_present %}✅ Sessione attiva{% else %}⚠️ <button id="btn-login">Login a Facebook</button>{% endif %}
   </span>
+  <span id="tier-stats" class="tier-stats"></span>
 </section>
 
 <section class="filters" id="filters">
@@ -33,6 +34,7 @@
     <label><input type="checkbox" class="filter-tier" value="D" checked> 🟡 D</label>
     <label><input type="checkbox" class="filter-tier" value="E"> 🔴 E</label>
     <label><input type="checkbox" class="filter-tier" value="over_budget"> 💸 Over</label>
+    <label><input type="checkbox" class="filter-tier" value="skip"> ⏭ Skip (debug)</label>
   </div>
   <div><label><input type="checkbox" id="filter-include-ignored"> Mostra ignorati</label></div>
 </section>

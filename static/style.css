@@ -36,3 +36,4 @@ button.primary:disabled { background: #93a4c1; cursor: not-allowed; }
 .actions button, .actions a { font-size: 12px; padding: 4px 10px; border-radius: 4px; text-decoration: none; border: 1px solid #d1d5db; background: #fff; color: #374151; cursor: pointer; }
 .actions a.fb-link { background: #1877f2; color: #fff; border-color: #1877f2; }
 textarea#config-json { width: 100%; font-family: ui-monospace, "Cascadia Code", Menlo, monospace; font-size: 13px; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; }
+.tier-stats { font-size: 13px; color: #475569; background: #f4f6f8; padding: 4px 10px; border-radius: 12px; }

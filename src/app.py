@@ -1,9 +1,10 @@
 """Flask app: dashboard + config + scan API."""
+import os
 import threading
 from flask import Flask, render_template, request, jsonify
 
 from src.config import load_config, save_config
-from src.db import init_db, get_posts, mark_ignored, get_latest_scan_run
+from src.db import init_db, get_posts, mark_ignored, get_latest_scan_run, get_connection
 from src.scan_job import start_scan, get_state, is_running
 from src.scanner import Scanner
 from src.paths import get_auth_state_path
@@ -56,6 +57,28 @@ def create_app() -> Flask:
             "is_ignored": p.is_ignored,
         } for p in posts])
 
+    @app.route("/api/debug/stats")
+    def api_debug_stats():
+        """Tier breakdown + recent posts preview for debugging classification."""
+        conn = get_connection()
+        try:
+            tier_rows = conn.execute(
+                "SELECT tier, COUNT(*) as n FROM posts GROUP BY tier ORDER BY n DESC"
+            ).fetchall()
+            nb_rows = conn.execute(
+                "SELECT COALESCE(neighborhood_tier, 'unknown') as nbt, COUNT(*) as n FROM posts GROUP BY nbt ORDER BY n DESC"
+            ).fetchall()
+            sample_rows = conn.execute(
+                "SELECT id, tier, neighborhood, neighborhood_tier, price_eur, date_start, date_end, duration_signal, match_reasons, substr(text_original,1,200) as preview FROM posts ORDER BY discovered_at DESC LIMIT 30"
+            ).fetchall()
+        finally:
+            conn.close()
+        return jsonify({
+            "tier_counts": {r["tier"]: r["n"] for r in tier_rows},
+            "neighborhood_tier_counts": {r["nbt"]: r["n"] for r in nb_rows},
+            "sample": [dict(r) for r in sample_rows],
+        })
+
     @app.route("/api/posts/<post_id>/ignore", methods=["POST"])
     def api_post_ignore(post_id):
         mark_ignored(post_id)
@@ -88,5 +111,10 @@ def create_app() -> Flask:
 
 if __name__ == "__main__":
     app = create_app()
-    print("FB Bot Scan attivo su http://localhost:5000")
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    host = os.environ.get("FB_BOT_HOST", "127.0.0.1")
+    port = int(os.environ.get("FB_BOT_PORT", "5000"))
+    if host == "0.0.0.0":
+        print(f"FB Bot Scan attivo su http://0.0.0.0:{port} (accessibile dalla LAN)")
+    else:
+        print(f"FB Bot Scan attivo su http://{host}:{port}")
+    app.run(host=host, port=port, debug=False)
