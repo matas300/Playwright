@@ -1,0 +1,38 @@
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #1e293b; color: #fff; }
+.topbar h1 { font-size: 18px; margin: 0; }
+.topbar a { color: #cbd5e1; margin-left: 12px; text-decoration: none; }
+main { padding: 16px 24px; max-width: 1400px; margin: 0 auto; }
+.status-bar { background: #fff; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+button.primary { background: #2563eb; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+button.primary:hover { background: #1d4ed8; }
+button.primary:disabled { background: #93a4c1; cursor: not-allowed; }
+.filters { position: sticky; top: 0; background: #fff; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; display: flex; gap: 24px; flex-wrap: wrap; z-index: 10; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.filters label { margin-right: 8px; }
+.filters input[type="number"] { width: 70px; padding: 4px 6px; border: 1px solid #d1d5db; border-radius: 4px; }
+.progress { background: #fff; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; }
+.progress-bar { background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+.progress-fill { background: #2563eb; height: 100%; width: 0%; transition: width 0.3s; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.15s; }
+.card:hover { transform: translateY(-2px); }
+.card .photo { width: 100%; height: 220px; object-fit: cover; background: #e5e7eb; display: block; }
+.card .photo-strip { display: flex; gap: 4px; padding: 4px; background: #f4f6f8; }
+.card .photo-strip img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer; }
+.card .body { padding: 12px; }
+.tier-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-right: 8px; }
+.tier-S, .tier-A { background: #fef3c7; color: #92400e; }
+.tier-B { background: #dbeafe; color: #1e40af; }
+.tier-C { background: #f3f4f6; color: #4b5563; }
+.tier-D { background: #fef9c3; color: #854d0e; }
+.tier-E { background: #fee2e2; color: #991b1b; }
+.tier-over_budget { background: #f5d0fe; color: #86198f; }
+.meta { font-size: 13px; color: #475569; margin-bottom: 8px; }
+.text-it { font-size: 14px; color: #1f2937; margin-bottom: 6px; white-space: pre-wrap; max-height: 200px; overflow: auto; }
+.text-lt { font-size: 12px; color: #6b7280; font-style: italic; display: none; white-space: pre-wrap; max-height: 150px; overflow: auto; }
+.card.show-lt .text-lt { display: block; }
+.actions { display: flex; gap: 8px; margin-top: 8px; }
+.actions button, .actions a { font-size: 12px; padding: 4px 10px; border-radius: 4px; text-decoration: none; border: 1px solid #d1d5db; background: #fff; color: #374151; cursor: pointer; }
+.actions a.fb-link { background: #1877f2; color: #fff; border-color: #1877f2; }
+textarea#config-json { width: 100%; font-family: ui-monospace, "Cascadia Code", Menlo, monospace; font-size: 13px; padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; }
