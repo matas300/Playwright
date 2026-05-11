@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="status-bar">
+  <button id="btn-scan" class="primary">🔄 Scansiona</button>
+  <span id="scan-status">
+    {% if latest_scan %}
+      Ultimo: {{ latest_scan.started_at.strftime('%d/%m/%Y %H:%M') }}
+      · <strong>{{ latest_scan.posts_new }}</strong> nuovi su {{ latest_scan.posts_found }}
+    {% else %}
+      Nessuna scansione ancora.
+    {% endif %}
+  </span>
+  <span id="session-status">
+    {% if session_present %}✅ Sessione attiva{% else %}⚠️ <button id="btn-login">Login a Facebook</button>{% endif %}
+  </span>
+</section>
+
+<section class="filters" id="filters">
+  <div>Prezzo €:
+    <input type="number" id="filter-price-min" placeholder="min">
+    <input type="number" id="filter-price-max" placeholder="max">
+  </div>
+  <div>Quartieri:
+    <label><input type="checkbox" class="filter-tier-nb" value="green" checked> 🟢 Top</label>
+    <label><input type="checkbox" class="filter-tier-nb" value="yellow" checked> 🟡 OK</label>
+    <label><input type="checkbox" class="filter-tier-nb" value="red"> 🔴 Evitare</label>
+  </div>
+  <div>Tier:
+    <label><input type="checkbox" class="filter-tier" value="S" checked> ⭐ S</label>
+    <label><input type="checkbox" class="filter-tier" value="A" checked> ⭐ A</label>
+    <label><input type="checkbox" class="filter-tier" value="B" checked> 👍 B</label>
+    <label><input type="checkbox" class="filter-tier" value="C" checked> 🤷 C</label>
+    <label><input type="checkbox" class="filter-tier" value="D" checked> 🟡 D</label>
+    <label><input type="checkbox" class="filter-tier" value="E"> 🔴 E</label>
+    <label><input type="checkbox" class="filter-tier" value="over_budget"> 💸 Over</label>
+  </div>
+  <div><label><input type="checkbox" id="filter-include-ignored"> Mostra ignorati</label></div>
+</section>
+
+<section class="progress" id="progress" style="display:none">
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <span id="progress-label"></span>
+</section>
+
+<section class="grid" id="results"></section>
+{% endblock %}

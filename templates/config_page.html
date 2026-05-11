@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <h2>Configurazione</h2>
+  <p>Modifica il JSON e premi Salva. Le modifiche hanno effetto al prossimo scan.</p>
+  <textarea id="config-json" rows="30" cols="100">{{ config | tojson(indent=2) }}</textarea>
+  <div><button id="btn-save-config" class="primary">Salva</button> <span id="save-status"></span></div>
+</section>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='config.js') }}"></script>
+{% endblock %}
