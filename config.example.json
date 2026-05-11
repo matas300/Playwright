@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {"id": "", "share_url": "https://www.facebook.com/share/g/1CtQQmxeEF/", "name": "Gruppo 1", "enabled": true},
+    {"id": "", "share_url": "https://www.facebook.com/share/g/1ASTG8yZqn/", "name": "Gruppo 2", "enabled": true},
+    {"id": "", "share_url": "https://www.facebook.com/share/g/1PgoVa8t9r/", "name": "Gruppo 3", "enabled": true},
+    {"id": "", "share_url": "https://www.facebook.com/share/g/1aVjok3F84/", "name": "Gruppo 4", "enabled": true}
+  ],
+  "budget": {"ideal_max": 600, "hard_max": 650, "near_budget_max": 700},
+  "summer_window": {"start_no_later_than": "06-10", "end_no_earlier_than": "08-27"},
+  "neighborhoods": {
+    "green": ["senamiestis", "uzupis", "užupis", "naujamiestis", "zverynas", "žvėrynas", "paupys", "snipiskes", "šnipiškės", "antakalnis", "antakalniu"],
+    "yellow": ["seskine", "šeškinė", "zirmunai", "žirmūnai", "ozas", "akropolis"],
+    "red": ["fabijoniskes", "fabijoniškės", "karoliniskes", "karoliniškės", "virsuliskes", "viršuliškės", "lazdynai", "justiniskes", "justiniškės", "pilaite", "pilaitė", "naujininkai", "baltupiai", "jeruzale"]
+  },
+  "scan": {"lookback_hours": 36, "max_posts_per_group": 80, "delay_min_s": 2, "delay_max_s": 6}
+}
