@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version)",
+      "Bash(where python *)",
+      "Bash(python -m venv .venv)",
+      "Bash(.venv\\\\Scripts\\\\pip install *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(.\\\\.venv\\\\Scripts\\\\Activate.ps1)",
+      "Bash(pytest -v)",
+      "PowerShell(New-Item *)",
+      "Bash(pytest --tb=no -q)"
+    ]
+  }
+}
